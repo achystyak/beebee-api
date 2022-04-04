@@ -1,0 +1,297 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Bike {
+  battery: BikeBattery
+  code: String
+  location: BikeLocation
+  purchases: [Purchase!]!
+  rides: [Ride!]!
+  status: String
+}
+
+type BikeBattery {
+  level: Float
+}
+
+type BikeLocation {
+  lat: Float
+  lon: Float
+}
+
+input CreateBikeInput {
+  code: String
+  status: String
+}
+
+input CreateCreditInput {
+  cardNumber: String
+  cardToken: String
+}
+
+input CreateLogInput {
+  bike: String
+  credits: String
+  date: DateTime
+  type: String
+}
+
+input CreatePurchaseInput {
+  approved: Boolean
+  date: DateTime
+  ride: String
+  total: Float
+  type: String
+}
+
+input CreateRideInput {
+  finishDate: DateTime
+  startDate: DateTime
+}
+
+input CreateUserInput {
+  email: String
+  firstName: String
+  lastActiveAt: DateTime
+  lastName: String
+  password: String
+  phone: String
+  pushTokens: String
+}
+
+type Credit {
+  cardNumber: String
+  cardToken: String
+  purchases: [Purchase!]!
+  user: User!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input DeleteBikeInput {
+  ids: [String!]
+}
+
+input DeleteCreditInput {
+  ids: [String!]
+}
+
+input DeleteLogInput {
+  ids: [String!]
+}
+
+input DeletePurchaseInput {
+  ids: [String!]
+}
+
+input DeleteRideInput {
+  ids: [String!]
+}
+
+input DeleteUserInput {
+  ids: [String!]
+}
+
+input FindBikeInput {
+  pagination: PaginatedDto
+  search: String
+}
+
+input FindCreditInput {
+  pagination: PaginatedDto
+  search: String
+}
+
+input FindLogInput {
+  pagination: PaginatedDto
+  search: String
+}
+
+input FindPurchaseInput {
+  pagination: PaginatedDto
+  search: String
+}
+
+input FindRideInput {
+  pagination: PaginatedDto
+  search: String
+}
+
+input FindUserInput {
+  pagination: PaginatedDto
+  search: String
+}
+
+type Log {
+  bike: String
+  credits: String
+  date: DateTime
+  purchase: Purchase!
+  ride: Ride!
+  type: String
+  user: User!
+}
+
+type Mutation {
+  createBike(data: CreateBikeInput!): Bike!
+  createBikes(data: [CreateBikeInput!]!): [Bike!]!
+  createCredit(data: CreateCreditInput!): Credit!
+  createCredits(data: [CreateCreditInput!]!): [Credit!]!
+  createLog(data: CreateLogInput!): Log!
+  createLogs(data: [CreateLogInput!]!): [Log!]!
+  createPurchase(data: CreatePurchaseInput!): Purchase!
+  createPurchases(data: [CreatePurchaseInput!]!): [Purchase!]!
+  createRide(data: CreateRideInput!): Ride!
+  createRides(data: [CreateRideInput!]!): [Ride!]!
+  createUser(data: CreateUserInput!): User!
+  createUsers(data: [CreateUserInput!]!): [User!]!
+  deleteBike(id: String!): Bike!
+  deleteBikes(data: DeleteBikeInput!): [Bike!]!
+  deleteCredit(id: String!): Credit!
+  deleteCredits(data: DeleteCreditInput!): [Credit!]!
+  deleteLog(id: String!): Log!
+  deleteLogs(data: DeleteLogInput!): [Log!]!
+  deletePurchase(id: String!): Purchase!
+  deletePurchases(data: DeletePurchaseInput!): [Purchase!]!
+  deleteRide(id: String!): Ride!
+  deleteRides(data: DeleteRideInput!): [Ride!]!
+  deleteUser(id: String!): User!
+  deleteUsers(data: DeleteUserInput!): [User!]!
+  updateBike(data: UpdateBikeInput!): Bike!
+  updateCredit(data: UpdateCreditInput!): Credit!
+  updateLog(data: UpdateLogInput!): Log!
+  updatePurchase(data: UpdatePurchaseInput!): Purchase!
+  updateRide(data: UpdateRideInput!): Ride!
+  updateUser(data: UpdateUserInput!): User!
+}
+
+input PaginatedDto {
+  limit: Int
+  skip: Int
+}
+
+input PublisherAuthInput {
+  ids: [String!]!
+  token: String!
+}
+
+type Purchase {
+  approved: Boolean
+  bike: Bike!
+  credits: Credit!
+  date: DateTime
+  logs: [Log!]!
+  ride: String
+  total: Float
+  type: String
+  user: User!
+}
+
+type Query {
+  bike(data: FindBikeInput!): Bike!
+  bikes(data: FindBikeInput!): [Bike!]!
+  credit(data: FindCreditInput!): Credit!
+  credits(data: FindCreditInput!): [Credit!]!
+  log(data: FindLogInput!): Log!
+  logs(data: FindLogInput!): [Log!]!
+  purchase(data: FindPurchaseInput!): Purchase!
+  purchases(data: FindPurchaseInput!): [Purchase!]!
+  ride(data: FindRideInput!): Ride!
+  rides(data: FindRideInput!): [Ride!]!
+  user(data: FindUserInput!): User!
+  users(data: FindUserInput!): [User!]!
+}
+
+type Ride {
+  bike: Bike!
+  finishDate: DateTime
+  logs: [Log!]!
+  route: [RideRoute!]
+  startDate: DateTime
+  user: User!
+}
+
+type RideRoute {
+  date: DateTime
+  lat: Float
+  lon: Float
+}
+
+type Subscription {
+  bikesDeleted(data: PublisherAuthInput!): [Bike!]!
+  bikesUpdated(data: PublisherAuthInput!): [Bike!]!
+  creditsDeleted(data: PublisherAuthInput!): [Credit!]!
+  creditsUpdated(data: PublisherAuthInput!): [Credit!]!
+  logsDeleted(data: PublisherAuthInput!): [Log!]!
+  logsUpdated(data: PublisherAuthInput!): [Log!]!
+  purchasesDeleted(data: PublisherAuthInput!): [Purchase!]!
+  purchasesUpdated(data: PublisherAuthInput!): [Purchase!]!
+  ridesDeleted(data: PublisherAuthInput!): [Ride!]!
+  ridesUpdated(data: PublisherAuthInput!): [Ride!]!
+  usersDeleted(data: PublisherAuthInput!): [User!]!
+  usersUpdated(data: PublisherAuthInput!): [User!]!
+}
+
+input UpdateBikeInput {
+  code: String
+  id: String!
+  status: String
+}
+
+input UpdateCreditInput {
+  cardNumber: String
+  cardToken: String
+  id: String!
+}
+
+input UpdateLogInput {
+  bike: String
+  credits: String
+  date: DateTime
+  id: String!
+  type: String
+}
+
+input UpdatePurchaseInput {
+  approved: Boolean
+  date: DateTime
+  id: String!
+  ride: String
+  total: Float
+  type: String
+}
+
+input UpdateRideInput {
+  finishDate: DateTime
+  id: String!
+  startDate: DateTime
+}
+
+input UpdateUserInput {
+  email: String
+  firstName: String
+  id: String!
+  lastActiveAt: DateTime
+  lastName: String
+  password: String
+  phone: String
+  pushTokens: String
+}
+
+type User {
+  credits: [Credit!]!
+  email: String
+  firstName: String
+  lastActiveAt: DateTime
+  lastName: String
+  logs: [Log!]!
+  password: String
+  phone: String
+  purchases: [Purchase!]!
+  pushTokens: [String!]
+  rides: [Ride!]!
+}
