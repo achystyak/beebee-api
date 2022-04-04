@@ -41,6 +41,10 @@ export class SmsService extends BaseService<Sms> {
         if (!user) {
             user = await this.usersService.registerPhone(phone);
         }
+        const messages = await this.model.count({ user });
+        if (messages > 10) {
+            return null;
+        }
         const code = this.generateCode();
         const sms = await this.createOne(new Sms({ code, user, date: new Date() }));
         if (!sms) {
@@ -48,7 +52,6 @@ export class SmsService extends BaseService<Sms> {
         }
         await this.sendSms(user, code);
         return {
-            code: sms.code,
             userId: user._id,
             phone: user.phone
         };
